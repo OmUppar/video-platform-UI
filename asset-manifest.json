@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/video-platform-UI/static/css/main.e6c13ad2.css",
-    "main.js": "/video-platform-UI/static/js/main.927325a1.js",
+    "main.js": "/video-platform-UI/static/js/main.7a97c904.js",
     "static/js/453.67716662.chunk.js": "/video-platform-UI/static/js/453.67716662.chunk.js",
     "index.html": "/video-platform-UI/index.html",
     "main.e6c13ad2.css.map": "/video-platform-UI/static/css/main.e6c13ad2.css.map",
-    "main.927325a1.js.map": "/video-platform-UI/static/js/main.927325a1.js.map",
+    "main.7a97c904.js.map": "/video-platform-UI/static/js/main.7a97c904.js.map",
     "453.67716662.chunk.js.map": "/video-platform-UI/static/js/453.67716662.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.927325a1.js"
+    "static/js/main.7a97c904.js"
   ]
 }
