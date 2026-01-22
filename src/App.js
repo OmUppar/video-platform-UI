@@ -7,7 +7,7 @@ function App() {
   const [message, setMessage] = useState("");
 
   // const BASE_URL = "http://localhost:3000"; // change to your backend port
-  const BASE_URL = "https://jsonplaceholder.typicode.com";
+  const BASE_URL = "https://video-platform-ejj3.onrender.com";
 
   // 1️⃣ Initialize Account
   const initializeAccount = async () => {
@@ -18,7 +18,7 @@ function App() {
       //   body: JSON.stringify({ email }),
       // });
 
-      const res = await fetch(`${BASE_URL}/posts`, {
+      const res = await fetch(`${BASE_URL}/authentication/initialize-account`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
