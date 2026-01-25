@@ -1,109 +1,105 @@
 import { useState } from "react";
+import "./App.css";
+import LandingPage from "./LandingPage";
 
 function App() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [step, setStep] = useState(1); // 1=email, 2=otp, 3=confirm
+  const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // const BASE_URL = "http://localhost:3000"; // change to your backend port
   const BASE_URL = "https://video-platform-ejj3.onrender.com";
 
-  // 1️⃣ Initialize Account
   const initializeAccount = async () => {
     try {
-      // const res = await fetch(`${BASE_URL}/authentication/initialize-account`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ email }),
-      // });
-
-      const res = await fetch(`${BASE_URL}/authentication/initialize-account`, {
+      await fetch(`${BASE_URL}/authentication/initialize-account`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
-      const data = await res.json();
-      setMessage("OTP sent to your email");
+      setMessage("📩 OTP sent to your email");
       setStep(2);
-    } catch (err) {
-      setMessage("Error sending OTP");
+    } catch {
+      setMessage("❌ Error sending OTP");
     }
   };
 
-  // 2️⃣ Verify OTP
   const verifyOtp = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/authentication/verify-otp`, {
+      await fetch(`${BASE_URL}/authentication/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),
       });
-
-      const data = await res.json();
-      setMessage("OTP verified");
+      setMessage("✅ OTP verified");
       setStep(3);
-    } catch (err) {
-      setMessage("Invalid OTP");
+    } catch {
+      setMessage("❌ Invalid OTP");
     }
   };
 
-  // 3️⃣ Confirm Login
   const confirmLogin = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/authentication/confirm-login`, {
+      await fetch(`${BASE_URL}/authentication/confirm-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
-      const data = await res.json();
-      setMessage("Login successful 🎉");
-    } catch (err) {
-      setMessage("Login failed");
+      setMessage("🎉 Login successful");
+      setIsLoggedIn(true);
+    } catch {
+      setMessage("❌ Login failed");
     }
   };
 
+  if (isLoggedIn) {
+  return <LandingPage />;
+}
+
   return (
-    <div style={{ padding: "50px" }}>
-      <h2>Login Flow</h2>
+    <div className="app-container">
+      <div className="login-card">
+        <h2>🎬 Video Platform Login</h2>
 
-      {step === 1 && (
-        <>
-          <input
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-          <br />
-          <button onClick={initializeAccount}>Send OTP</button>
-        </>
-      )}
+        {step === 1 && (
+          <>
+            <input
+              className="input"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button className="button" onClick={initializeAccount}>
+              Send OTP
+            </button>
+          </>
+        )}
 
-      {step === 2 && (
-        <>
-          <input
-            type="text"
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-          />
-          <br />
-          <br />
-          <button onClick={verifyOtp}>Verify OTP</button>
-        </>
-      )}
+        {step === 2 && (
+          <>
+            <input
+              className="input"
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+            />
+            <button className="button" onClick={verifyOtp}>
+              Verify OTP
+            </button>
+          </>
+        )}
 
-      {step === 3 && (
-        <>
-          <button onClick={confirmLogin}>Confirm Login</button>
-        </>
-      )}
+        {step === 3 && (
+          <button className="button" onClick={confirmLogin}>
+            Confirm Login
+          </button>
+        )}
 
-      <p>{message}</p>
+        <p className="message">{message}</p>
+      </div>
     </div>
   );
 }
